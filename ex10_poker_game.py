@@ -26,6 +26,10 @@ class Card:
 
 
 def print_cards(cards: List[Card]):
+    if len(cards) == 0:
+        print('No cards!')
+        return
+
     for i in range(len(cards) - 1):
         print(cards[i], end=', ')
     print(cards[-1])
@@ -109,7 +113,7 @@ class Player:
                 print('Make decision:')
                 for key, value in available_decisions.items():
                     print(f'{key.value}: {value}')
-                print('q: to see cards')
+                print('q: to see your cards')
                 print('w: to see stake')
                 print('e: to see drawn cards')
 
@@ -134,7 +138,7 @@ class Player:
             return raise_amount
         else:
             raise_amount = 0
-            while stake < raise_amount <= self._money:
+            while not stake < raise_amount <= self._money:
                 print(f'Choose raise between: {stake} and {self._money}')
                 raise_amount = int(input())
             return raise_amount
@@ -161,25 +165,25 @@ class Game:
         self._current_stake = 0
         self._current_player_bets = dict()
 
-    # @property
-    # def players(self):
-    #     return self._players
-    #
-    # @property
-    # def drawn_cards(self):
-    #     return self._drawn_cards
-    #
-    # @property
-    # def small_blind(self):
-    #     return self._small_blind
-    #
-    # @property
-    # def big_blind(self):
-    #     return self._big_blind
-    #
-    # @property
-    # def current_player_bets(self):
-    #     return self._current_player_bets
+    @property
+    def players(self):
+        return self._players
+
+    @property
+    def drawn_cards(self):
+        return self._drawn_cards
+
+    @property
+    def small_blind(self):
+        return self._small_blind
+
+    @property
+    def big_blind(self):
+        return self._big_blind
+
+    @property
+    def current_player_bets(self):
+        return self._current_player_bets
 
     def _init_players(self, players_no: int):
         for i in range(players_no):
